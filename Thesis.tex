@@ -1,30 +1,133 @@
 \documentclass{mimosis}
+\usepackage[a4paper]{geometry}
+\geometry{left=1.55in}
+\geometry{right=1.55in}
+% PDF-A output
+%\usepackage{metalogo}
+%\usepackage[a-3u]{pdfx}
 
-\usepackage{metalogo}
+% Compile just one chapter
+%\includeonly{Sources/chapter_to_include.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Some of my favourite personal adjustments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % These are the adjustments that I consider necessary for typesetting
-% a nice thesis. However, they are *not* included in the template, as
+% a nice thesis. However, they are *not* included in the template,   as
 % I do not want to force you to use them.
 
 % This ensures that I am able to typeset bold font in table while still aligning the numbers
 % correctly.
 \usepackage{etoolbox}
 
+\usepackage{siunitx}
+\DeclareSIUnit\px{px}
+\DeclareSIUnit\dBm{dBm}
+
+\sisetup{%
+  detect-all           = true,
+  detect-family        = true,
+  detect-mode          = true,
+  detect-shape         = true,
+  detect-weight        = true
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Customs 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Openright with oneside class
+% Taken from http://mirrors.ctan.org/macros/latex/unpacked/latex.ltx
+\makeatletter
+\def\cleardoublepage{\clearpage\ifodd\c@page\else
+    \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi}
+\makeatother
+
+% No footnote ends in different pages
+\interfootnotelinepenalty=10000
+
+\usepackage{amsthm}
+% Argmax
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% Lemma environment
+%\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}
+% Better QED
+\renewcommand\qedsymbol{$\blacksquare$}
+
+% Algorithms
+\usepackage{algpseudocode,algorithm,algorithmicx}
+% Asymptotic computational complexity
+\newcommand\bigO[1]{$\mathcal{O}(#1)$}
+
+\definecolor{UNIPDRED}{RGB}{155,0,20}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+% Coloured chapther numbers
+%\renewcommand*{\chapterformat}{%
+% \fontsize{60}{68}\selectfont\textcolor{uniPdRed}{\thechapter}\hspace{0.2in}%
+%}
+
+%\renewcommand\chapterlinesformat[3]{\Ifstr{#2}{}{}{#2\\*}#3}
+
+\usepackage[inline]{enumitem}
+
+% Fancy headings
+\KOMAoption{chapterprefix}{true}
+\renewcommand*\raggedchapter{\centering}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=4\baselineskip]{chapter}
+\setkomafont{chapterprefix}{\normalsize\mdseries}
+
+\renewcommand*{\chapterformat}{%
+  \chapappifchapterprefix{\nobreakspace}\textcolor{UNIPDRED}{\LARGE{\hspace{0.01cm} \thechapter}}\autodot%
+  \IfUsePrefixLine{%
+    \par\nobreak\vspace{-\parskip}\vspace{-.6\baselineskip}%
+    {\rule{0.9\textwidth}{0.5pt}}%
+  }{\enskip}%
+}
+
+% Better tables
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{hhline}
+
+\renewcommand\chapterlineswithprefixformat[3]{%
+  \MakeUppercase{#2#3}
+}
+
+% Dropped letters
+\usepackage{lettrine}
+
+% Placeholder text
+\usepackage{lipsum}
+
+% TikZ & Co.
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepgfplotslibrary{polar}
+\usepackage{pgfplotstable}
+\pgfplotsset{plot coordinates/math parser=false} 
+\usetikzlibrary {patterns.meta}
+\usetikzlibrary{plotmarks,patterns,patterns.meta,decorations.pathreplacing,backgrounds,calc,arrows,arrows.meta,spy,matrix}
+\newlength\fheight
+\newlength\fwidth
+\usepackage{booktabs}
+\usepackage{multirow}
+\usetikzlibrary{patterns,decorations.pathreplacing,backgrounds,calc}
+\usepgfplotslibrary{patchplots,groupplots,fillbetween}
+
+\usepackage{afterpage}
+\usepackage{tabulary}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Hyperlinks & bookmarks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\usepackage[%
-  colorlinks = true,
-  citecolor  = RoyalBlue,
-  linkcolor  = RoyalBlue,
-  urlcolor   = RoyalBlue,
-  unicode,
-  ]{hyperref}
 
 \usepackage{bookmark}
 
@@ -45,118 +148,53 @@
   hyperref     = true,
   maxbibnames  = 99,
   maxcitenames = 99,
-  sortcites    = true,
-  style        = numeric,
+  sorting		= none,
+  style        = numeric-comp,
   ]{biblatex}
+  
+ \usepackage{xurl}
 
-\input{bibliography-mimosis}
-\addbibresource{Thesis.bib}
+\addbibresource{bibl.bib}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fonts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifxetexorluatex
-  \usepackage{unicode-math}
-  \setmainfont{EB Garamond}
-  \setmathfont{Garamond Math}
+%\usepackage[lf]{ebgaramond}
+%\usepackage[scale=0.8]{sourcecodepro}
+\usepackage{newpxtext,newpxmath} % Palatino like text and math
+\onehalfspacing
 
-  % Load some missing symbols from another font.
-  \setmathfont{STIX Two Math}[%
-    range = {
-      \sharp,
-      \natural,
-      \flat,
-      \clubsuit,
-      \spadesuit,
-      \checkmark
-    }
-  ]
-  \setmonofont[Scale=MatchLowercase]{Source Code Pro}
-\else
-  \usepackage[lf]{ebgaramond}
-  \usepackage[oldstyle,scale=0.7]{sourcecodepro}
-  \singlespacing
-\fi
+\renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
 
-\newacronym[description={Principal component analysis}]{PCA}{PCA}{principal component analysis}
-\newacronym                                            {SNF}{SNF}{Smith normal form}
-\newacronym[description={Topological data analysis}]   {TDA}{TDA}{topological data analysis}
-
-\newglossaryentry{LaTeX}{%
-  name        = {\LaTeX},
-  description = {A document preparation system},
-  sort        = {LaTeX},
-}
-
-\newglossaryentry{Real numbers}{%
-  name        = {$\real$},
-  description = {The set of real numbers},
-  sort        = {Real numbers},
-}
+\input{acronyms.tex}
 
 \makeindex
 \makeglossaries
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Ordinals
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\makeatletter
-\@ifundefined{st}{%
-  \newcommand{\st}{\textsuperscript{\textup{st}}\xspace}
-}{}
-\@ifundefined{rd}{%
-  \newcommand{\rd}{\textsuperscript{\textup{rd}}\xspace}
-}{}
-\@ifundefined{nd}{%
-  \newcommand{\nd}{\textsuperscript{\textup{nd}}\xspace}
-}{}
-\makeatother
-
-\renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Incipit
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{\texttt{latex-mimosis}}
-\subtitle{A minimal, modern \LaTeX{} package for typesetting your thesis}
-\author{Bastian Rieck}
+\title{\textcolor{UNIPDRED}{Dissertation title}}
+\subtitle{It has no subtitle neither}
+\author{\textsc{Dissertation author}}
 
 \begin{document}
 
 \frontmatter
   \include{Sources/Title}
-  \include{Sources/Abstract}
+  %\include{Sources/Abstract}
+  \newpage\phantom{justskipthepage}
 
+{
+  \hypersetup{linkcolor=UNIPDRED}
   \tableofcontents
+}
 
 \mainmatter
-
-  \part[A good part]{%
-    A good part\\
-    %
-    \vspace{1cm}
-    %
-    \begin{minipage}[l]{\textwidth}
-    %
-    \textnormal{%
-      \normalsize
-      %
-      \begin{singlespace*}
-        \onehalfspacing
-        %
-        You can also use parts in order to partition your great work
-        into larger `chunks'. This involves some manual adjustments in
-        terms of the layout, though.
-      \end{singlespace*}
-    }
-    \end{minipage}
-  }
-
   \include{Sources/Introduction}
-
+  
 % This ensures that the subsequent sections are being included as root
 % items in the bookmark structure of your PDF reader.
 \bookmarksetup{startatroot}
@@ -164,7 +202,6 @@
 
   \begingroup
     \let\clearpage\relax
-    \glsaddall
     \printglossary[type=\acronymtype]
     \newpage
     \printglossary
