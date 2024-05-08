@@ -31,7 +31,7 @@ jobs:
         uses: hspaans/latexmk-action@v1
         with:
           format: pdf
-          filename: "Thesis.tex"
+          filename: "main-template.tex"
 
       - name: Push generated files to branch 'gh-pages'
         run: |
