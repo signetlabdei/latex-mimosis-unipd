@@ -1,6 +1,6 @@
 # latex-mimosis-unipd: A minimal & modern template for your thesis
 
-This repository contains a minimal & modern UniPD LaTeX template based on [latex-mimosis](https://github.com/Pseudomanifold/latex-mimosis). Using the default template and front page, the template [looks like this](main-template.pdf).
+This repository contains a minimal & modern UniPD LaTeX template based on [latex-mimosis](https://github.com/Pseudomanifold/latex-mimosis). Using the default template and one of the available front pages, the template [looks like this](https://signetlabdei.github.io/latex-mimosis-unipd/main-template.pdf).
 
 ## Building
 
