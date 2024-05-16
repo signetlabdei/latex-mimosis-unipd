@@ -10,7 +10,7 @@
 %\includeonly{Sources/chapter_to_include.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Some of my favourite personal adjustments
+% Some of my favorite personal adjustments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % These are the adjustments that I consider necessary for typesetting
@@ -68,7 +68,7 @@
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 
-% Coloured chapther numbers
+% Coloured chapter numbers
 %\renewcommand*{\chapterformat}{%
 % \fontsize{60}{68}\selectfont\textcolor{uniPdRed}{\thechapter}\hspace{0.2in}%
 %}
@@ -130,6 +130,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{bookmark}
+\bookmarksetup{color=black}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bibliography
@@ -151,6 +152,12 @@
   sorting		= none,
   style        = numeric-comp,
   ]{biblatex}
+\hypersetup{
+  % Document-wide hyperlinks color
+  colorlinks=true,
+  citecolor=UNIPDRED,
+  %allbordercolors=UNIPDRED
+}
   
  \usepackage{xurl}
 
@@ -193,7 +200,8 @@
   \newpage\phantom{justskipthepage}
 
 {
-  \hypersetup{linkcolor=UNIPDRED}
+  % Custom link color for TOC
+  \hypersetup{linkcolor=black}
   \tableofcontents
 }
 
