@@ -172,10 +172,6 @@
 \usepackage{newpxtext,newpxmath} % Palatino like text and math
 \onehalfspacing
 
-% Front pages counter
-\newcounter{frontpagecounter}
-\newcommand\showfrontpagecounter{\stepcounter{frontpagecounter}\thefrontpagecounter}
-
 \renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
 
 \input{Sources/acronyms.tex}
@@ -187,8 +183,8 @@
 % Incipit
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{\textcolor{UNIPDRED}{Cover page template~\showfrontpagecounter}}
-\author{\textsc{Dissertation author}}
+\title{\textcolor{UNIPDRED}{Dissertation title}}
+\author{Dissertation author}
 
 \begin{document}
 
@@ -196,6 +192,7 @@
   \include{Sources/Title_Unipd}
   \include{Sources/Title_UniPD_background_logo}
   \include{Sources/Title_UniPD_background_logo_2}
+  \include{Sources/Title_UniPD_tufte_like}
   %\include{Sources/Abstract}
   \newpage\phantom{justskipthepage}
 
